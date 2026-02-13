@@ -1,0 +1,48 @@
+{
+  "name": "@jerrysv/mlb-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for MLB and MiLB data via the free MLB Stats API — teams, players, games, scores, standings, transactions, and more. No API key required.",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "mlb-mcp-server": "src/index.js"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/*.test.js",
+    "lint": "npx eslint src/ test/"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "mlb",
+    "baseball",
+    "milb",
+    "statsapi",
+    "sports",
+    "seattle-mariners",
+    "diamondbacks",
+    "hillsboro-hops"
+  ],
+  "author": "Jerry Sievert <code@legitimatesounding.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jerrysievert/mlb-mcp-server"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0"
+  }
+}

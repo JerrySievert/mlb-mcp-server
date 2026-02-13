@@ -1,0 +1,39 @@
+{
+  "copyright": "Copyright 2025 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt",
+  "teams": [
+    {
+      "allStarStatus": "N",
+      "id": 419,
+      "name": "Hillsboro Hops",
+      "link": "/api/v1/teams/419",
+      "season": 2025,
+      "venue": {
+        "id": 4429,
+        "name": "Hillsboro Ballpark",
+        "link": "/api/v1/venues/4429"
+      },
+      "teamCode": "hil",
+      "fileCode": "t419",
+      "abbreviation": "HIL",
+      "teamName": "Hops",
+      "locationName": "Hillsboro",
+      "firstYearOfPlay": "1946",
+      "league": {
+        "id": 126,
+        "name": "Northwest League",
+        "link": "/api/v1/league/126"
+      },
+      "sport": {
+        "id": 13,
+        "link": "/api/v1/sports/13",
+        "name": "High-A"
+      },
+      "shortName": "Hillsboro",
+      "parentOrgName": "Arizona Diamondbacks",
+      "parentOrgId": 109,
+      "franchiseName": "Hillsboro",
+      "clubName": "Hops",
+      "active": true
+    }
+  ]
+}
