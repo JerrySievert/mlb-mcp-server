@@ -1,6 +1,6 @@
 {
   "name": "@jerrysv/mlb-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "MCP server for MLB and MiLB data via the free MLB Stats API — teams, players, games, scores, standings, transactions, and more. No API key required.",
   "type": "module",
   "main": "src/index.js",

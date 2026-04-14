@@ -123,7 +123,7 @@ export class MLBStatsClient {
     if (endDate) params.set('endDate', endDate);
     if (teamId) params.set('teamId', teamId);
     if (gameType) params.set('gameType', gameType);
-    params.set('hydrate', 'team,venue');
+    params.set('hydrate', 'team(venue(timezone)),venue(timezone)');
     return this._get(`${V1}/schedule?${params}`);
   }
 

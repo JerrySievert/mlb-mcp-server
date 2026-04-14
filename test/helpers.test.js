@@ -5,6 +5,7 @@ import {
   todayDate,
   currentSeasonYear,
   formatGameSummary,
+  formatGameDateTime,
   formatRosterEntry,
   textContent,
   jsonContent
@@ -89,6 +90,63 @@ describe('formatGameSummary', () => {
     const result = formatGameSummary(game);
     assert.ok(result.includes('?'));
     assert.ok(result.includes('TBD'));
+  });
+});
+
+describe('formatGameDateTime', () => {
+  it('converts UTC gameDate to venue local time', () => {
+    const game = {
+      gameDate: '2025-07-02T01:35:00Z',
+      officialDate: '2025-07-01',
+      status: { detailedState: 'Final', startTimeTBD: false },
+      venue: {
+        name: 'PK Park',
+        timeZone: { id: 'America/Los_Angeles', offset: -7, offsetAtGameTime: -7, tz: 'PDT' }
+      }
+    };
+    const result = formatGameDateTime(game);
+    assert.ok(result.includes('Jul 1'), `expected local date Jul 1, got: ${result}`);
+    assert.ok(result.includes('6:35 PM'), `expected 6:35 PM, got: ${result}`);
+    assert.ok(result.includes('PDT'), `expected PDT timezone, got: ${result}`);
+  });
+
+  it('shows Time TBD when startTimeTBD is true', () => {
+    const game = {
+      gameDate: '2025-07-02T01:35:00Z',
+      officialDate: '2025-07-01',
+      status: { detailedState: 'Scheduled', startTimeTBD: true },
+      venue: {
+        name: 'PK Park',
+        timeZone: { id: 'America/Los_Angeles', tz: 'PDT' }
+      }
+    };
+    const result = formatGameDateTime(game);
+    assert.ok(result.includes('Time TBD'));
+    assert.ok(result.includes('2025-07-01'));
+  });
+
+  it('falls back to raw UTC when no timezone info', () => {
+    const game = {
+      gameDate: '2025-07-02T01:35:00Z',
+      venue: { name: 'Unknown Park' }
+    };
+    const result = formatGameDateTime(game);
+    assert.strictEqual(result, '2025-07-02T01:35:00Z');
+  });
+
+  it('handles Eastern timezone correctly', () => {
+    const game = {
+      gameDate: '2025-07-02T23:05:00Z',
+      officialDate: '2025-07-02',
+      status: { detailedState: 'Scheduled', startTimeTBD: false },
+      venue: {
+        name: 'Yankee Stadium',
+        timeZone: { id: 'America/New_York', offset: -4, offsetAtGameTime: -4, tz: 'EDT' }
+      }
+    };
+    const result = formatGameDateTime(game);
+    assert.ok(result.includes('7:05 PM'), `expected 7:05 PM, got: ${result}`);
+    assert.ok(result.includes('EDT'), `expected EDT timezone, got: ${result}`);
   });
 });
 

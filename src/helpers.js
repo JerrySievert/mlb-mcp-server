@@ -60,9 +60,42 @@ export function formatGameSummary(g) {
       ? `${awayScore}-${homeScore}`
       : 'TBD';
   const venue = g.venue?.name ? ` @ ${g.venue.name}` : '';
-  const dt = g.gameDate || '';
+  const dt = formatGameDateTime(g);
   const gamePk = g.gamePk ? ` [gamePk: ${g.gamePk}]` : '';
   return `${away} vs ${home} — ${score} (${status})${venue} ${dt}${gamePk}`.trim();
+}
+
+/**
+ * Format a game's date/time in the venue's local timezone.
+ * Falls back to the raw UTC gameDate if timezone info is unavailable.
+ */
+export function formatGameDateTime(g) {
+  const raw = g.gameDate;
+  if (!raw) return '';
+
+  const tz = g.venue?.timeZone;
+  if (!tz?.id) return raw;
+
+  if (g.status?.startTimeTBD) {
+    return `${g.officialDate || raw.slice(0, 10)} (Time TBD ${tz.tz || tz.id})`;
+  }
+
+  try {
+    const d = new Date(raw);
+    const formatted = d.toLocaleString('en-US', {
+      timeZone: tz.id,
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+    return `${formatted} ${tz.tz || tz.id}`;
+  } catch {
+    return raw;
+  }
 }
 
 /**
